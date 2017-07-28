@@ -12,15 +12,21 @@ using namespace LeapUtilGL;
 
 class SampleListener : public Listener {
   public:
+    Sockets Tx;
     virtual void onInit(const Controller&);
     virtual void onConnect(const Controller&);
     virtual void onFrame(const Controller&);
 };
 
-int turno =0;
-
 void SampleListener::onInit(const Controller& controller) {
   std::cout << "Initialized" << std::endl;
+  //string IP = "10.0.1.122";
+  string IP = "127.0.0.1";
+  const char *c_IP = IP.c_str();
+  int Port = 3000;
+
+  this->Tx.openCom(Port);
+  this->Tx.initClient(c_IP, Port);
 }
 
 void SampleListener::onConnect(const Controller& controller) {
@@ -34,13 +40,18 @@ void SampleListener::onConnect(const Controller& controller) {
 void SampleListener::onFrame(const Controller& controller) {
 //    Controller controller;
   const Frame frame = controller.frame();
-  Sockets Tx;
+//  Sockets Tx;
   char* mensaje;
   mensaje =new char [256];
-
-  string IP = "10.0.1.122";
+/*
+  //string IP = "10.0.1.122";
+  string IP = "127.0.0.1";
   const char *c_IP = IP.c_str();
+  int Port = 3000;
 
+  Tx.openCom(Port);
+  Tx.initClient(c_IP, Port);
+*/
   // Get gestures
   Leap::GestureList gestures = frame.gestures();
   for (int g = 0; g < gestures.count(); ++g) {
@@ -49,32 +60,30 @@ void SampleListener::onFrame(const Controller& controller) {
 
       case Leap::Gesture::TYPE_CIRCLE:
         //Handle circle gestures
-        mensaje = "0";
-        if(turno==0){
-          cout<< "Circle"<< endl;
-          Tx.sendMessage(c_IP, 9000, mensaje);
-        turno=1;
-        }
+        mensaje = "Circle";
+        cout<< mensaje << endl;
+        this->Tx.sendMessage(mensaje);
         break;
 
       case Leap::Gesture::TYPE_KEY_TAP:
         //Handle key tap gestures
-        cout<< "Key"<< endl;
+        mensaje = "Key Tap";
+        cout<< mensaje << endl;
+        this->Tx.sendMessage(mensaje);
         break;
 
       case Leap::Gesture::TYPE_SCREEN_TAP:
         //Handle screen tap gestures
-        cout<< "Tap"<< endl;
+        mensaje = "Tap Screen";
+        cout<< mensaje << endl;
+        this->Tx.sendMessage(mensaje);
         break;
 
       case Leap::Gesture::TYPE_SWIPE:
         //Handle swipe gestures
-        mensaje = "1";
-        if(turno==1){
-            cout<< "Swipe"<< endl;
-            Tx.sendMessage(c_IP, 9000, mensaje);
-            turno=0;
-          }
+        mensaje = "z";
+        cout<< "Swipe (End communication sending : z)"<< endl;
+        this->Tx.sendMessage(mensaje);
         break;
 
       default:
@@ -128,8 +137,10 @@ int main(int argc, char *argv[]) {
 
   // Keep this process running until Enter is pressed
   std::cout << "Press Enter to quit..." << std::endl;
-  for(int i=0; i<4;i++)
-    std::cin.get();
+  std::cin.get();
 
+  // Remove the sample listener when done
   controller.removeListener(listener);
+
+  return 0;
 }

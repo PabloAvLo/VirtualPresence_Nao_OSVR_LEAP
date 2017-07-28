@@ -7,18 +7,18 @@ Sockets server;
 
 int main(int argc, char** argv)
 {
-  char c;
-    if (argc < 2) {
-         fprintf(stderr,"ERROR, no port provided\n");
-         exit(1);
-    }else{
+  char* codigo;
+  codigo =new char [256];
 
-    while(c !='z'){
-		  server.receiveMessage(atoi(argv[1]));
-      std::cout<<"Enter z to quit"<<std::endl;
-      std::cin.get(c);
-    }
-	}
+  if (argc < 2) {
+    fprintf(stderr,"ERROR, no port provided\n");
+    exit(1);
+  }
+
+  else{
+    server.openCom(atoi(argv[1]));
+    codigo = server.receiveMessage(atoi(argv[1]));
+  }
+
 	return 0;
-
 }

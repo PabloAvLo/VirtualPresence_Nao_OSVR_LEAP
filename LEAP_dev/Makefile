@@ -15,4 +15,3 @@ clean:
 	rm -rf $(Target)
 	
 # Primero correr el cliente y luego el servidor
-# Cinder se descarga de github usando git clone --recursive https://github.com/cinder/Cinder.git
