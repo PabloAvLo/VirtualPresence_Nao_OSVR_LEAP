@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Say Hello World &mdash; Aldebaran 2.1.4.13 documentation</title>
+    <title>Moving NAO’s head &mdash; Aldebaran 2.1.4.13 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
     <link rel="top" title="Aldebaran 2.1.4.13 documentation" href="../../../../../index.html" />
     <link rel="up" title="C++ Examples" href="../../../examples.html" />
-    <link rel="next" title="Creating a simple remote module" href="../helloworld/index.html" />
-    <link rel="prev" title="Creating events" href="../events/events.html" />
+    <link rel="next" title="Reacting to an event: bumper" href="../../sensors/bumper/index.html" />
+    <link rel="prev" title="Creating a custom main" href="../../core/custommain/custom_main.html" />
  
 <script type="text/javascript" src="https://community.aldebaran-robotics.com/static/js/include_doc.js"></script>
 <script>
@@ -67,66 +67,92 @@ $(window).ready(function () {
         
       </div>
       <div class="nav">
-    &laquo; <a href="../events/events.html" title="Creating events">previous</a>
+    &laquo; <a href="../../core/custommain/custom_main.html" title="Creating a custom main">previous</a>
      |
     <a href="../../../examples.html" title="C++ Examples" accesskey="U">up</a>
    |
-    <a href="../helloworld/index.html" title="Creating a simple remote module">next</a> &raquo;</div>
+    <a href="../../sensors/bumper/index.html" title="Reacting to an event: bumper">next</a> &raquo;</div>
     </div>
 
     <div id="bd">
       <div id="yui-main">
         <div class="yui-b">
-          <div class="yui-g" id="dev-cpp-examples-core-sayhelloworld-sayhelloworld">
+          <div class="yui-g" id="dev-cpp-examples-motion-movehead-movehead">
             
-  <div class="section" id="say-hello-world">
-<span id="cpp-tutos-say-helloworld"></span><h1>Say Hello World<a class="headerlink" href="#say-hello-world" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="moving-nao-s-head">
+<span id="cpp-tutos-move-head"></span><h1>Moving NAO&#8217;s head<a class="headerlink" href="#moving-nao-s-head" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="../../../examples.html#cpp-examples"><em>&lt;&lt; return to C++ examples</em></a></p>
-<p>The aim of this example is to demonstrate how to use the specialized proxy to
-ALTextToSpeech. This example will make NAO say &#8220;Hello World&#8221;.</p>
-<p>The complete example is available here <a class="reference download internal" href="../../../../../_downloads/sayhelloworld.zip"><tt class="xref download docutils literal"><span class="pre">sayhelloworld.zip</span></tt></a></p>
+<p>The aim of this example is to show how to move NAO using a proxy to ALMotion.
+This particular example will make NAO&#8217;s head move right and left.</p>
+<p>The whole example is available here: <a class="reference download internal" href="../../../../../_downloads/movehead.zip"><tt class="xref download docutils literal"><span class="pre">movehead.zip</span></tt></a></p>
 <div class="section" id="source-file">
 <h2>Source file:<a class="headerlink" href="#source-file" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference download internal" href="../../../../../_downloads/sayhelloworld.cpp"><tt class="xref download docutils literal"><span class="pre">sayhelloworld.cpp</span></tt></a></p>
+<p><a class="reference download internal" href="../../../../../_downloads/movehead.cpp"><tt class="xref download docutils literal"><span class="pre">movehead.cpp</span></tt></a></p>
 <div class="highlight-cpp"><div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * Copyright (c) 2011 Aldebaran Robotics. All Rights Reserved</span>
-<span class="cm"> * \file sayhelloworld.cpp</span>
-<span class="cm"> * \brief Make NAO say a short phrase.</span>
-<span class="cm"> *</span>
-<span class="cm"> * A simple example showing how to make NAO say a short phrase using the</span>
-<span class="cm"> * specialized proxy ALTextToSpeechProxy.</span>
-<span class="cm"> */</span>
-
+<span class="cm">* Copyright (c) 2011 Aldebaran Robotics. All Rights Reserved</span>
+<span class="cm">*</span>
+<span class="cm">* \file movehead.cpp</span>
+<span class="cm">* \brief Move NAO&#39;s head.</span>
+<span class="cm">*</span>
+<span class="cm">* A simple example showing how to move NAO&#39;s head by using ALMotionProxy.</span>
+<span class="cm">* This example will make NAO turn its head left and right slowly.</span>
+<span class="cm">* We use here a specialized proxy to ALMotion.</span>
+<span class="cm">*/</span>
 
 <span class="cp">#include &lt;iostream&gt;</span>
 <span class="cp">#include &lt;alerror/alerror.h&gt;</span>
-<span class="cp">#include &lt;alproxies/altexttospeechproxy.h&gt;</span>
+<span class="cp">#include &lt;alproxies/almotionproxy.h&gt;</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+
   <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Wrong number of arguments!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: say NAO_IP&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Usage: movehead NAO_IP&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="cm">/** The desired phrase to be said. */</span>
-  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">phraseToSay</span> <span class="o">=</span> <span class="s">&quot;Hello world&quot;</span><span class="p">;</span>
-  <span class="n">try</span>
-  <span class="p">{</span>
-    <span class="cm">/** Create an ALTextToSpeechProxy so that we can call the say method</span>
-<span class="cm">    * Arguments for the constructor are:</span>
-<span class="cm">    *  - IP of the robot</span>
-<span class="cm">    *  - port on which NAOqi is listening. Default is 9559</span>
-<span class="cm">    */</span>
-    <span class="n">AL</span><span class="o">::</span><span class="n">ALTextToSpeechProxy</span> <span class="n">tts</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">9559</span><span class="p">);</span>
+  <span class="cm">/** The name of the joint to be moved. */</span>
+  <span class="k">const</span> <span class="n">AL</span><span class="o">::</span><span class="n">ALValue</span> <span class="n">jointName</span> <span class="o">=</span> <span class="s">&quot;HeadYaw&quot;</span><span class="p">;</span>
 
-    <span class="cm">/** Call the say method */</span>
-    <span class="n">tts</span><span class="p">.</span><span class="n">say</span><span class="p">(</span><span class="n">phraseToSay</span><span class="p">);</span>
+
+  <span class="n">try</span> <span class="p">{</span>
+    <span class="cm">/** Create a ALMotionProxy to call the methods to move NAO&#39;s head.</span>
+<span class="cm">    * Arguments for the constructor are:</span>
+<span class="cm">    * - IP adress of the robot</span>
+<span class="cm">    * - port on which NAOqi is listening, by default 9559</span>
+<span class="cm">    */</span>
+    <span class="n">AL</span><span class="o">::</span><span class="n">ALMotionProxy</span> <span class="n">motion</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">9559</span><span class="p">);</span>
+
+    <span class="cm">/** Make sure the head is stiff to be able to move it.</span>
+<span class="cm">    * To do so, make the stiffness go to the maximum in one second.</span>
+<span class="cm">    */</span>
+    <span class="cm">/** Target stiffness. */</span>
+    <span class="n">AL</span><span class="o">::</span><span class="n">ALValue</span> <span class="n">stiffness</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+    <span class="cm">/** Time (in seconds) to reach the target. */</span>
+    <span class="n">AL</span><span class="o">::</span><span class="n">ALValue</span> <span class="n">time</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+    <span class="cm">/** Call the stiffness interpolation method. */</span>
+    <span class="n">motion</span><span class="p">.</span><span class="n">stiffnessInterpolation</span><span class="p">(</span><span class="n">jointName</span><span class="p">,</span> <span class="n">stiffness</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
+
+    <span class="cm">/** Set the target angle list, in radians. */</span>
+    <span class="n">AL</span><span class="o">::</span><span class="n">ALValue</span> <span class="n">targetAngles</span> <span class="o">=</span> <span class="n">AL</span><span class="o">::</span><span class="n">ALValue</span><span class="o">::</span><span class="n">array</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5f</span><span class="p">,</span> <span class="mf">1.5f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">);</span>
+    <span class="cm">/** Set the corresponding time lists, in seconds. */</span>
+    <span class="n">AL</span><span class="o">::</span><span class="n">ALValue</span> <span class="n">targetTimes</span> <span class="o">=</span> <span class="n">AL</span><span class="o">::</span><span class="n">ALValue</span><span class="o">::</span><span class="n">array</span><span class="p">(</span><span class="mf">3.0f</span><span class="p">,</span> <span class="mf">6.0f</span><span class="p">,</span> <span class="mf">9.0f</span><span class="p">);</span>
+    <span class="cm">/** Specify that the desired angles are absolute. */</span>
+    <span class="kt">bool</span> <span class="n">isAbsolute</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+    <span class="cm">/** Call the angle interpolation method. The joint will reach the</span>
+<span class="cm">    * desired angles at the desired times.</span>
+<span class="cm">    */</span>
+    <span class="n">motion</span><span class="p">.</span><span class="n">angleInterpolation</span><span class="p">(</span><span class="n">jointName</span><span class="p">,</span> <span class="n">targetAngles</span><span class="p">,</span> <span class="n">targetTimes</span><span class="p">,</span> <span class="n">isAbsolute</span><span class="p">);</span>
+
+    <span class="cm">/** Remove the stiffness on the head. */</span>
+    <span class="n">stiffness</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">;</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+    <span class="n">motion</span><span class="p">.</span><span class="n">stiffnessInterpolation</span><span class="p">(</span><span class="n">jointName</span><span class="p">,</span> <span class="n">stiffness</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
+
   <span class="p">}</span>
-  <span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">AL</span><span class="o">::</span><span class="n">ALError</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span>
-  <span class="p">{</span>
+  <span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">AL</span><span class="o">::</span><span class="n">ALError</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Caught exception: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
@@ -137,25 +163,25 @@ ALTextToSpeech. This example will make NAO say &#8220;Hello World&#8221;.</p>
 </div>
 <div class="section" id="cmakelists-txt">
 <h2>CMakeLists.txt:<a class="headerlink" href="#cmakelists-txt" title="Permalink to this headline">¶</a></h2>
-<p>The corresponding CMakeLists.txt file is the following:</p>
-<p><a class="reference download internal" href="../../../../../_downloads/CMakeLists7.txt"><tt class="xref download docutils literal"><span class="pre">CMakeLists.txt</span></tt></a></p>
+<p>The corresponding CMakeLists.txt file is the following</p>
+<p><a class="reference download internal" href="../../../../../_downloads/CMakeLists8.txt"><tt class="xref download docutils literal"><span class="pre">CMakeLists.txt</span></tt></a></p>
 <div class="highlight-cmake"><div class="highlight"><pre><span class="c">##</span>
 <span class="c"># Copyright (c) 2011 Aldebaran Robotics. All Rights Reserved.</span>
 
 <span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.6.4</span> <span class="s">FATAL_ERROR</span><span class="p">)</span>
 <span class="c"># Give a name to the project.</span>
-<span class="nb">project</span><span class="p">(</span><span class="s">sayhelloworld</span><span class="p">)</span>
-<span class="c"># This include enable you to use qibuild framework</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">movehead</span><span class="p">)</span>
+<span class="c"># This include enable you to use our CMake framework</span>
 <span class="nb">find_package</span><span class="p">(</span><span class="s">qibuild</span><span class="p">)</span>
 
-<span class="c"># Create an executable named sayhelloworld,</span>
-<span class="c"># with the source file : sayhelloworld.cpp</span>
-<span class="nb">qi_create_bin</span><span class="p">(</span><span class="s">sayhelloworld</span> <span class="s">sayhelloworld.cpp</span><span class="p">)</span>
+<span class="c"># Create an executable named movehead,</span>
+<span class="c"># with the source file : movehead.cpp</span>
+<span class="nb">qi_create_bin</span><span class="p">(</span><span class="s">movehead</span> <span class="s">movehead.cpp</span><span class="p">)</span>
 
-<span class="c"># Tell CMake that sayhelloworld depends on ALCOMMON and ALPROXIES</span>
-<span class="c"># This will set the libraries to link sayhelloworld with,</span>
+<span class="c"># Tell CMake that movehead depends on ALCOMMON and ALPROXIES</span>
+<span class="c"># This will set the libraries to link movehead with,</span>
 <span class="c"># the include paths, and so on</span>
-<span class="nb">qi_use_lib</span><span class="p">(</span><span class="s">sayhelloworld</span> <span class="s">ALCOMMON</span> <span class="s">ALPROXIES</span><span class="p">)</span>
+<span class="nb">qi_use_lib</span><span class="p">(</span><span class="s">movehead</span> <span class="s">ALCOMMON</span> <span class="s">ALPROXIES</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -164,11 +190,11 @@ ALTextToSpeech. This example will make NAO say &#8220;Hello World&#8221;.</p>
 
           </div>
           <!-- <div class="footernav">
-    &laquo; <a href="../events/events.html" title="Creating events">Creating events</a>
+    &laquo; <a href="../../core/custommain/custom_main.html" title="Creating a custom main">Creating a custom main</a>
      |
     <a href="../../../examples.html" title="C++ Examples" accesskey="U">C++ Examples</a>
    |
-    <a href="../helloworld/index.html" title="Creating a simple remote module">Creating a simple remote module</a> &raquo;</div> -->
+    <a href="../../sensors/bumper/index.html" title="Reacting to an event: bumper">Reacting to an event: bumper</a> &raquo;</div> -->
         </div>
       </div>
       
@@ -206,14 +232,14 @@ ALTextToSpeech. This example will make NAO say &#8220;Hello World&#8221;.</p>
 <li class="toctree-l3 current"><a class="reference internal" href="../../../index.html">C++ SDK</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../../../tutorials.html">C++ Tutorial</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="../../../examples.html">C++ Examples</a><ul class="current">
-<li class="toctree-l5"><a class="reference internal" href="../events/events.html">Creating events</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="">Say Hello World</a><ul class="simple">
+<li class="toctree-l5"><a class="reference internal" href="../../core/events/events.html">Creating events</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../core/sayhelloworld/sayhelloworld.html">Say Hello World</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../core/helloworld/index.html">Creating a simple remote module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../core/helloworld/example.html">Example: HelloWorld module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../core/custommain/custom_main.html">Creating a custom main</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="">Moving NAO&#8217;s head</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="../helloworld/index.html">Creating a simple remote module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../helloworld/example.html">Example: HelloWorld module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../custommain/custom_main.html">Creating a custom main</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../motion/movehead/movehead.html">Moving NAO&#8217;s head</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../sensors/bumper/index.html">Reacting to an event: bumper</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../sensors/bumper/example.html">Example code: Bumper module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../sensors/bumper/principle.html">Principle</a></li>
@@ -251,7 +277,7 @@ ALTextToSpeech. This example will make NAO say &#8220;Hello World&#8221;.</p>
 
     <h3><a href="../../../../../index.html">On this page</a></h3>
     <ul>
-<li><a class="reference internal" href="#">Say Hello World</a><ul>
+<li><a class="reference internal" href="#">Moving NAO&#8217;s head</a><ul>
 <li><a class="reference internal" href="#source-file">Source file:</a></li>
 <li><a class="reference internal" href="#cmakelists-txt">CMakeLists.txt:</a></li>
 </ul>
@@ -267,11 +293,11 @@ ALTextToSpeech. This example will make NAO say &#8220;Hello World&#8221;.</p>
 
     <div id="ft">
       <div class="nav">
-    &laquo; <a href="../events/events.html" title="Creating events">previous</a>
+    &laquo; <a href="../../core/custommain/custom_main.html" title="Creating a custom main">previous</a>
      |
     <a href="../../../examples.html" title="C++ Examples" accesskey="U">up</a>
    |
-    <a href="../helloworld/index.html" title="Creating a simple remote module">next</a> &raquo;</div>
+    <a href="../../sensors/bumper/index.html" title="Reacting to an event: bumper">next</a> &raquo;</div>
     </div>
   </div>
 
