@@ -1,0 +1,19 @@
+*********************************************************************************
+                           Universidad de Costa Rica
+                  						   Proyecto Eléctrico
+                                  II Ciclo 2017
+
+                           README: Example Sockets
+
+ Author: Pablo Avila B30724
+*********************************************************************************
+
+To compile examples use:
+      make
+
+To run the example use:
+      make run
+ - The first Tab is Server, the second one is the Client (write messages here)
+
+To clean folder use:
+      make clean
