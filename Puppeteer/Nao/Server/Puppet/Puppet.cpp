@@ -31,10 +31,14 @@ int main(int argc, char* argv[])
 
   //************************** NAO OBJECTS *************************************
   AL::ALTextToSpeechProxy tts(puppet.naoIP, 9559);
+  AL::ALMotionProxy motion(puppet.naoIP, 9559);
+  AL::ALRobotPostureProxy posture(puppet.naoIP, 9559);
 
-  //******************** PHRASES TO SAY ****************************************
+  //******************** Variables *********************************************
   string hello = "Hello, my name is SHE";
-
+  float speed = 0.65f;
+  bool rHandOpen = true;
+  bool lHandOpen = true;
 
   bool loop=true;
   try{
@@ -43,14 +47,29 @@ int main(int argc, char* argv[])
       code = atoi(message);
 
       switch(code){
+        case TASK0:
+          puppet.speak(tts, hello); cout<< "SPEAK"<<endl; break;
+
         case TASK1:
-          puppet.speak(tts, hello); cout<< "TASK1"<<endl; break;
+          puppet.stiffnessOnOff(motion, true, "Body"); cout<< "rigid"<<endl; break;
 
         case TASK2:
-          puppet.speak(tts, "SIT DOWN");  cout<< "TASK2"<<endl; break;
+          puppet.stiffnessOnOff(motion, false, "Body"); cout<< "free"<<endl; break;
 
-        case TASK3:
-          puppet.speak(tts, "SPEAK"); cout<< "TASK3"<<endl; break;
+        case 3:
+        puppet.standUp(motion, posture, speed);
+
+        case 4:
+        puppet.crouch(motion, posture, speed);
+
+        case 5:
+        puppet.sitDown(motion, posture, speed);
+
+        case 6:
+        lHandOpen = puppet.lHandOpenClose(motion, lHandOpen);
+
+        case 7:
+        rHandOpen = puppet.rHandOpenClose(motion, rHandOpen);
 
         default:
           puppet.speak(tts, "Failed"); cout<< "INVALID CASE" <<endl; loop =false; break;

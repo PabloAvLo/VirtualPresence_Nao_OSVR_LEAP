@@ -1059,6 +1059,8 @@ CMakeFiles/Puppet.dir/Puppet.cpp.o
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/cross/i686-aldebaran-linux-gnu/sysroot/usr/include/xlocale.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/alerror.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/config.h
+ /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/almotionproxy.h
+ /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alrobotpostureproxy.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/altexttospeechproxy.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/api.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alvalue/alvalue.h
@@ -2180,6 +2182,8 @@ CMakeFiles/Puppet.dir/TaskLib.cpp.o
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/cross/i686-aldebaran-linux-gnu/sysroot/usr/include/xlocale.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/alerror.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/config.h
+ /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/almotionproxy.h
+ /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alrobotpostureproxy.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/altexttospeechproxy.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/api.h
  /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alvalue/alvalue.h
