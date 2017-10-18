@@ -142,6 +142,9 @@ sdk/bin/Puppet: CMakeFiles/Puppet.dir/Puppet.cpp.o
 sdk/bin/Puppet: CMakeFiles/Puppet.dir/TaskLib.cpp.o
 sdk/bin/Puppet: CMakeFiles/Puppet.dir/home/pabloav/Desktop/Puppeteer/CommLib/Sockets.cpp.o
 sdk/bin/Puppet: CMakeFiles/Puppet.dir/build.make
+sdk/bin/Puppet: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/lib/libalvision.so
+sdk/bin/Puppet: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/lib/libalextractor.so
+sdk/bin/Puppet: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/lib/libalthread.so
 sdk/bin/Puppet: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/lib/libalproxies.so
 sdk/bin/Puppet: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/lib/libalcommon.so
 sdk/bin/Puppet: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/boost/lib/libboost_signals-mt-1_55.so

@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
   //******************** Variables *********************************************
   string hello = "Hello, my name is SHE";
-  float speed = 0.65f;
+  float speed = 0.8f;
   bool rHandOpen = true;
   bool lHandOpen = true;
 
@@ -57,19 +57,31 @@ int main(int argc, char* argv[])
           puppet.stiffnessOnOff(motion, false, "Body"); cout<< "free"<<endl; break;
 
         case 3:
-        puppet.standUp(motion, posture, speed);
+          puppet.standUp(motion, posture, speed);
 
         case 4:
-        puppet.crouch(motion, posture, speed);
+          puppet.crouch(motion, posture, speed);
 
         case 5:
-        puppet.sitDown(motion, posture, speed);
+          puppet.sitDown(motion, posture, speed);
 
         case 6:
-        lHandOpen = puppet.lHandOpenClose(motion, lHandOpen);
+          lHandOpen = puppet.lHandOpenClose(motion, lHandOpen);
 
         case 7:
-        rHandOpen = puppet.rHandOpenClose(motion, rHandOpen);
+          rHandOpen = puppet.rHandOpenClose(motion, rHandOpen);
+
+        case 8:
+          puppet.walk(motion, posture, speed);
+
+        case 9:
+          puppet.rotate(motion, posture, speed);
+
+        case 10:
+          puppet.moveSide(motion, posture, speed);
+
+        case 11:
+          puppet.stopMove(motion, posture);
 
         default:
           puppet.speak(tts, "Failed"); cout<< "INVALID CASE" <<endl; loop =false; break;

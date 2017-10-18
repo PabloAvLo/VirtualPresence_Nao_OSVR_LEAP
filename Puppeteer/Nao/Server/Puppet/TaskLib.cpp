@@ -26,7 +26,7 @@
 }
 
 //************************** STIFFNESS ON/OFF **********************************
- bool TaskLib::stiffnessOnOff(AL::ALMotionProxy motion, bool rigid=true, string bodyPart= "body"){
+ bool TaskLib::stiffnessOnOff(AL::ALMotionProxy motion, bool rigid=true, string bodyPart= "Body"){
    float stiffnesses  = 1.0f;
 
    if(rigid == false){
@@ -38,31 +38,31 @@
 }
 
 //************************** STAND UP ******************************************
- void TaskLib::standUp(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture,float speed){
+ void TaskLib::standUp(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, float speed){
    string standInit = "StandInit";
 
-   motion.setStiffnesses("body", 1.0f);
-   posture.goToPosture(standInit,speed);
+   motion.setStiffnesses("Body", 1.0f);
+   posture.goToPosture(standInit, speed);
 }
 
 //************************** CROUCH ********************************************
-void TaskLib::crouch(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture,float speed){
-  string standInit = "Crouch";
-  motion.setStiffnesses("body", 1.0f);
-  posture.goToPosture(standInit,speed);
+void TaskLib::crouch(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, float speed){
+  string crouch = "Crouch";
+  motion.setStiffnesses("Body", 1.0f);
+  posture.goToPosture(crouch, speed);
 
-  motion.setStiffnesses("body", 0.0f);
+  motion.setStiffnesses("Body", 0.0f);
   motion.setStiffnesses("Head", 1.0f);
 }
 
 //************************** SIT DOWN ******************************************
-void TaskLib::sitDown(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture,float speed){
-  string standInit = "Sit";
+void TaskLib::sitDown(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, float speed){
+  string sit = "Sit";
 
-  motion.setStiffnesses("body", 1.0f);
-  posture.goToPosture(standInit,speed);
+  motion.setStiffnesses("Body", 1.0f);
+  posture.goToPosture(sit, speed);
 
-  motion.setStiffnesses("body", 0.0f);
+  motion.setStiffnesses("Body", 0.0f);
   motion.setStiffnesses("Head", 1.0f);
 }
 
@@ -81,7 +81,7 @@ bool TaskLib::lHandOpenClose(AL::ALMotionProxy motion, bool open){
   return (!open);
 }
 
-//************************** RIGHT HAND OPEN/CLOSE ******************************
+//************************** RIGHT HAND OPEN/CLOSE *****************************
 bool TaskLib::rHandOpenClose(AL::ALMotionProxy motion, bool open){
 
   motion.setStiffnesses("RHand", 1.0f);
@@ -94,4 +94,97 @@ bool TaskLib::rHandOpenClose(AL::ALMotionProxy motion, bool open){
   }
 
   return (!open);
+}
+
+//************************** WALK **********************************************
+void TaskLib::walk(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vX){
+  string standInit = "StandInit";
+  string actuator= "Body";
+  float speed = 0.9f;
+
+  motion.setStiffnesses(actuator, 1.0f);
+  posture.goToPosture(standInit, speed);
+  motion.moveToward(vX, 0.0f, 0.0f);
+}
+
+//************************** ROTATE ********************************************
+void TaskLib::rotate(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vTheta){
+  string standInit = "StandInit";
+  string actuator= "Body";
+  float speed = 0.9f;
+
+  motion.setStiffnesses(actuator, 1.0f);
+  posture.goToPosture(standInit, speed);
+  motion.moveToward(0.0f, 0.0f, vTheta);
+}
+
+//************************** MOVE SIDE *****************************************
+void TaskLib::moveSide(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vY){
+  string standInit = "StandInit";
+  string actuator= "Body";
+  float speed = 0.9f;
+
+  motion.setStiffnesses(actuator, 1.0f);
+  posture.goToPosture(standInit, speed);
+  motion.moveToward(0.0f, vY, 0.0f);
+}
+
+//************************** STOP MOVE *****************************************
+void TaskLib::stopMove(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture){
+  string standInit = "StandInit";
+  float speed = 0.9f;
+
+  motion.stopMove();
+  posture.goToPosture(standInit, speed);
+}
+
+//************************** CAMERA SET UP *************************************
+void TaskLib::cameraSetUp(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy photo, AL::ALVideoRecorderProxy recorder){
+  // Video Device
+
+  // Take Pictures
+  photo.setPictureFormat("png");
+  photo.setResolution(2); // kQQVGA
+
+  // Record Video
+  recorder.setVideoFormat("MJPG");
+  recorder.setResolution(2); // kQQVGA
+  recorder.setFrameRate(15); //15 FPS max.
+}
+
+//************************** SELECT CAMERA  ************************************
+bool TaskLib::selectCamera(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy photo, AL::ALVideoRecorderProxy recorder, bool top){
+  bool cameraId=0;
+
+  if(top == false){
+    cameraId  = 1;
+  }
+
+  photo.setCameraID(cameraId);
+  recorder.setCameraID(cameraId);
+  video.setActiveCamera(cameraId);
+  return (!cameraId);
+}
+
+//************************** TAKE PICTURE **************************************
+void TaskLib::takePicture(AL::ALPhotoCaptureProxy photo, string fileName){
+  string path = "/home/Puppeteer/Picutures/";
+  bool overWrite = false;
+  system("mkdir /home/Puppeteer/Picutures/");
+  photo.takePicture(path, fileName, overWrite);
+}
+
+//************************** RECORD VIDEO **************************************
+bool TaskLib::recordVideo(AL::ALVideoRecorderProxy recorder, string fileName, bool startRec){
+  if(startRec == true){
+    string path = "/home/Puppeteer/Videos/";
+    bool overWrite = false;
+    system("mkdir /home/Puppeteer/Videos/");
+    recorder.startRecording(path, fileName, overWrite);
+  }
+  else{
+    recorder.stopRecording();
+  }
+
+  return(!startRec);
 }

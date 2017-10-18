@@ -16,6 +16,9 @@
 #include <alproxies/altexttospeechproxy.h>
 #include <alproxies/almotionproxy.h>
 #include <alproxies/alrobotpostureproxy.h>
+#include <alproxies/alphotocaptureproxy.h>
+#include <alproxies/alvideodeviceproxy.h>
+#include <alproxies/alvideorecorderproxy.h>
 
 // Standar Includes
 #include <iostream>
@@ -48,7 +51,7 @@ public:
    * @param string                  textToSay
    * return void
   **/
-  void speak(AL::ALTextToSpeechProxy tts, string textToSay);
+  void speak(AL::ALTextToSpeechProxy tts, const string textToSay);
 
   //****************************************************************************
   /**             stiffnessOnOff
@@ -63,7 +66,7 @@ public:
    * @param string            bodyPart
    * return void
   **/
-  bool stiffnessOnOff(AL::ALMotionProxy motion, bool rigid, string bodyPart);
+  bool stiffnessOnOff(AL::ALMotionProxy motion, bool rigid, const string bodyPart);
 
   //****************************************************************************
   /**             sandUp
@@ -75,7 +78,7 @@ public:
    * @param float                   speed
    * return void
   **/
-  void standUp(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture,float speed);
+  void standUp(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float speed);
 
   //****************************************************************************
   /**             Crouch
@@ -87,7 +90,7 @@ public:
    * @param float                   speed
    * return void
   **/
-  void crouch(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture,float speed);
+  void crouch(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float speed);
 
   //****************************************************************************
   /**             sitDown
@@ -99,7 +102,7 @@ public:
    * @param float                   speed
    * return void
   **/
-  void sitDown(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture,float speed);
+  void sitDown(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float speed);
 
   //****************************************************************************
   /**             lHandOpenClose
@@ -109,7 +112,7 @@ public:
    * @param bool                    open
    * return bool                    handStatus
   **/
-  bool lHandOpenClose(AL::ALMotionProxy motion, bool open);
+  bool lHandOpenClose(AL::ALMotionProxy motion, const bool open);
 
   //****************************************************************************
   /**             rHandOpenClose
@@ -119,7 +122,84 @@ public:
    * @param bool                    open
    * return bool                    handStatus
   **/
-  bool rHandOpenClose(AL::ALMotionProxy motion, bool open);
+  bool rHandOpenClose(AL::ALMotionProxy motion, const bool open);
+
+//------------------------------------------------------------------------------------------
+//                FALTA DESCRIBIR LAS FUNCIONES BIEN
+
+  //****************************************************************************
+  /**             walk
+   * Description: This function makes the Nao move straight forward or backward
+   * with negative numbers, with a constant (normalized) velocity 'vX'.
+   * @param AL::ALMotionProxy       motion
+   * @param float                   vX
+   * return void
+  **/
+  void walk(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vX);
+
+  //****************************************************************************
+  /**             rotate
+   * Description: Rotates the Nao with a constant (normalized) velocity 'vTHeta'
+   * clockwise using negative numbers.
+   * @param AL::ALMotionProxy       motion
+   * @param float                   vTheta
+   * return void
+  **/
+  void rotate(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vTheta);
+
+  //****************************************************************************
+  /**             moveSide
+   * Description: Positive 'vY' values makes the Nao move to the left with a
+   * constant velocity.
+   * @param AL::ALMotionProxy       motion
+   * @param float                   vY
+   * return void
+  **/
+  void moveSide(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vY);
+
+  //****************************************************************************
+  /**             stopMove
+   * Description: Stops current Nao movement, and goes to 'standInit' posture.
+   * @param AL::ALMotionProxy       motion
+   * return void
+  **/
+  void stopMove(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture);
+
+  //****************************************************************************
+  /**             cameraSetUp
+   * Description: Stops current Nao movement, and goes to 'standInit' posture.
+   * More information of ALPhotoCaptureProxy on:
+   * - http://doc.aldebaran.com/2-1/naoqi/vision/alphotocapture-api.html#ALPhotoCaptureProxy::setCaptureInterval__iCR
+   * More information of ALVideoRecorderProxy on:
+   * - http://doc.aldebaran.com/2-1/naoqi/vision/alvideorecorder-api.html#alvideorecorder-api
+   * @param AL::ALMotionProxy       motion
+   * return void
+  **/
+  void cameraSetUp(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy photo, AL::ALVideoRecorderProxy recorder);
+
+  //****************************************************************************
+  /**             selectCamera
+   * Description: Stops current Nao movement, and goes to 'standInit' posture.
+   * @param AL::ALMotionProxy       motion
+   * return bool
+  **/
+  bool selectCamera(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy photo, AL::ALVideoRecorderProxy recorder, bool top);
+
+  //****************************************************************************
+  /**             takePicture
+   * Description: Stops current Nao movement, and goes to 'standInit' posture.
+   * @param AL::ALMotionProxy       motion
+   * return bool
+  **/
+  void takePicture(AL::ALPhotoCaptureProxy photo, string fileName);
+
+  //****************************************************************************
+  /**             recordVideo
+   * Description: Stops current Nao movement, and goes to 'standInit' posture.
+   * @param AL::ALMotionProxy       motion
+   * return bool
+  **/
+  bool recordVideo(AL::ALVideoRecorderProxy recorder, string fileName, bool startRec);
 
 };
 #endif

@@ -14,4 +14,4 @@ qi_create_bin(Puppet Puppet.cpp TaskLib.cpp TaskLib.h ../../../CommLib/Sockets.c
 # Tell CMake that Puppet depends on ALCOMMON and ALPROXIES
 # This will set the libraries to link Puppet with,
 # the include paths, and so on
-qi_use_lib(Puppet ALCOMMON ALPROXIES)
+qi_use_lib(Puppet ALCOMMON ALPROXIES ALVISION)

@@ -1059,8 +1059,11 @@ CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linu
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/alerror.h
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/config.h
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/almotionproxy.h
+CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alphotocaptureproxy.h
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alrobotpostureproxy.h
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/altexttospeechproxy.h
+CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alvideodeviceproxy.h
+CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alvideorecorderproxy.h
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/api.h
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alvalue/alvalue.h
 CMakeFiles/Puppet.dir/Puppet.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alvalue/config.h
@@ -2182,8 +2185,11 @@ CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-lin
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/alerror.h
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alerror/config.h
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/almotionproxy.h
+CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alphotocaptureproxy.h
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alrobotpostureproxy.h
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/altexttospeechproxy.h
+CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alvideodeviceproxy.h
+CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/alvideorecorderproxy.h
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alproxies/api.h
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alvalue/alvalue.h
 CMakeFiles/Puppet.dir/TaskLib.cpp.o: /home/pabloav/Desktop/Puppeteer/Nao/ctc-linux64-atom-2.1.4.13/libnaoqi/include/alvalue/config.h
