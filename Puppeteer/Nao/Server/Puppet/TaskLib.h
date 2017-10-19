@@ -124,9 +124,6 @@ public:
   **/
   bool rHandOpenClose(AL::ALMotionProxy motion, const bool open);
 
-//------------------------------------------------------------------------------------------
-//                FALTA DESCRIBIR LAS FUNCIONES BIEN
-
   //****************************************************************************
   /**             walk
    * Description: This function makes the Nao move straight forward or backward
@@ -165,6 +162,9 @@ public:
   **/
   void stopMove(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture);
 
+  //------------------------------------------------------------------------------------------
+  //                FALTA DESCRIBIR LAS FUNCIONES BIEN
+
   //****************************************************************************
   /**             cameraSetUp
    * Description: Stops current Nao movement, and goes to 'standInit' posture.
@@ -181,7 +181,7 @@ public:
   /**             selectCamera
    * Description: Stops current Nao movement, and goes to 'standInit' posture.
    * @param AL::ALMotionProxy       motion
-   * return bool
+   * return bool (!top)
   **/
   bool selectCamera(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy photo, AL::ALVideoRecorderProxy recorder, bool top);
 
@@ -197,9 +197,25 @@ public:
   /**             recordVideo
    * Description: Stops current Nao movement, and goes to 'standInit' posture.
    * @param AL::ALMotionProxy       motion
-   * return bool
+   * return bool (!startRec)
   **/
   bool recordVideo(AL::ALVideoRecorderProxy recorder, string fileName, bool startRec);
 
+  //****************************************************************************
+  /**             moveArms
+   * Description: Stops current Nao movement, and goes to 'standInit' posture.
+   * @param AL::ALMotionProxy       motion
+   * return bool (!up)
+  **/
+  bool moveArms(AL::ALMotionProxy motion, bool up);
+
+  //****************************************************************************
+  /**             reachObject
+   * Description: Stops current Nao movement, and goes to 'standInit' posture.
+   * @param AL::ALMotionProxy       motion
+   * return bool (!up)
+  **/
+  void reachObject(AL::ALMotionProxy motion);
+  
 };
 #endif

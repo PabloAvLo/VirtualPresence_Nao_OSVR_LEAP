@@ -188,3 +188,40 @@ bool TaskLib::recordVideo(AL::ALVideoRecorderProxy recorder, string fileName, bo
 
   return(!startRec);
 }
+
+//************************** MOVE ARMS ***********************************
+bool TaskLib::moveArms(AL::ALMotionProxy motion, bool up){
+  AL::ALValue joints = AL::ALValue::array("LShoulderPitch", "RShoulderPitch");
+
+  float angle = 1.571f; // PI/2
+  float fractionMaxSpeed  = 0.3f;
+
+  if(up == false){
+    angle = angle * (-1);
+  }
+
+  AL::ALValue angles  = AL::ALValue::array(angle, angle);
+  motion.setStiffnesses(joints, AL::ALValue::array(1.0f, 1.0f));
+  motion.setAngles(joints, angles, fractionMaxSpeed);
+
+  return (!up);
+}
+
+//************************** REACH OBJECT ***********************************
+void TaskLib::reachObject(AL::ALMotionProxy motion){
+  AL::ALValue shoulders = AL::ALValue::array("LShoulderPitch", "RShoulderPitch");
+  AL::ALValue elbows = AL::ALValue::array("LShoulderPitch", "RShoulderPitch");
+  AL::ALValue arms = AL::ALValue::array("LArm", "RArm");
+
+  float shoulderAngle = 0.0f; // PI/2
+  float elbowAngle = -1.54f; // -88.5 [deg]
+  float fractionMaxSpeed  = 0.3f;
+
+  AL::ALValue elbowAngles  = AL::ALValue::array(elbowAngle, elbowAngle);
+  AL::ALValue shoulderAngles  = AL::ALValue::array(shoulderAngle, shoulderAngle);
+
+  motion.setStiffnesses(arms, AL::ALValue::array(1.0f, 1.0f));
+  motion.setAngles(elbows, elbowAngles, fractionMaxSpeed);
+  motion.setAngles(shoulders, shoulderAngles, fractionMaxSpeed);
+  motion.setAngles(elbows, shoulderAngles, fractionMaxSpeed);
+}
