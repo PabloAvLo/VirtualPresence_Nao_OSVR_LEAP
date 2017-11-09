@@ -1,0 +1,3 @@
+.../OSVR-Core/inc/osvr/sockets/
+./Client <IPdelNAO> 3010 
+./Server 3010
