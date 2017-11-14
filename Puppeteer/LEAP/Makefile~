@@ -1,5 +1,5 @@
 Target = GESTOS
-Target2 = LEAP_SERVICE
+Target2 = LEAP
 Source = gestos.cpp ./Include/Leap.h ./Include/libLeap.so
 Source2 = LeapService.cpp ./Include/Leap.h ./Include/libLeap.so
 CC= g++ -std=c++0x 

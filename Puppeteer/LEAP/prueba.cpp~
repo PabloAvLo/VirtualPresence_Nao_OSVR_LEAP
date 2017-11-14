@@ -1,0 +1,111 @@
+#include <iostream>
+#include <cstring>
+#include "Leap.h"
+#include "LeapUtilGL.h"
+#include "Sockets.h"
+
+using namespace std;
+using namespace Leap;
+
+class SampleListener : public Listener {
+  public:
+    Sockets Tx;
+    string IP;
+    virtual void onInit(const Controller&);
+    virtual void onConnect(const Controller&);
+    virtual void onFrame(const Controller&);
+};
+
+void SampleListener::onInit(const Controller& controller) {
+  std::cout << "Initialized" << std::endl;
+  const char *c_IP = this->IP.c_str();
+  int Port = 3000;
+
+  this->Tx.openCom(Port);
+  this->Tx.initClient(c_IP, Port);
+}
+
+void SampleListener::onConnect(const Controller& controller) {
+  std::cout << "Connected" << std::endl;
+  controller.enableGesture(Gesture::TYPE_CIRCLE);
+  controller.enableGesture(Gesture::TYPE_KEY_TAP);
+  controller.enableGesture(Gesture::TYPE_SCREEN_TAP);
+  controller.enableGesture(Gesture::TYPE_SWIPE);
+}
+
+void SampleListener::onFrame(const Controller& controller) {
+//    Controller controller;
+  const Frame frame = controller.frame();
+
+  char mensaje[256];
+ 
+
+  // Get gestures
+  Leap::GestureList gestures = frame.gestures();
+  for (int g = 0; g < gestures.count(); ++g) {
+    Gesture gesture = gestures[g];
+    switch (gesture.type()) {
+
+      case Leap::Gesture::TYPE_CIRCLE:
+        //Handle circle gestures
+        mensaje[0] = '0';
+        cout<< mensaje << endl;
+        this->Tx.sendMessage(mensaje);
+        break;
+
+      case Leap::Gesture::TYPE_KEY_TAP:
+        //Handle key tap gestures
+        mensaje[0] = '1';
+        cout<< mensaje << endl;
+        this->Tx.sendMessage(mensaje);
+        break;
+
+      case Leap::Gesture::TYPE_SCREEN_TAP:
+        //Handle screen tap gestures
+        mensaje[0] = '2';
+        cout<< mensaje << endl;
+        this->Tx.sendMessage(mensaje);
+        break;
+
+      case Leap::Gesture::TYPE_SWIPE:
+        //Handle swipe gestures
+        mensaje[0] = 'z';
+        cout<< "Swipe (End communication sending : z)"<< endl;
+        this->Tx.sendMessage(mensaje);
+        break;
+
+      default:
+        //Handle unrecognized gestures
+        break;
+    }
+  }
+}
+
+int main(int argc, char *argv[]) {
+  
+  //Sockets Tx;
+  SampleListener listener;
+  Controller controller;
+
+	if(argc != 2){
+     cout <<"Please enter NAO IP address"<<endl;
+     cin>> listener.IP; 
+  }
+  else{
+  	  listener.IP = argv[1];
+  }
+  
+  controller.addListener(listener);
+
+  // Keep this process running until Enter is pressed
+  std::cout << "Press Enter to quit..." << std::endl;
+  std::cin.get();
+  if(argc != 2){
+  	std::cin.get();
+  }
+
+  // Remove the sample listener when done
+  controller.removeListener(listener);
+
+  return 0;
+}
