@@ -1,7 +1,25 @@
+//******************************************************************************
+//                           Universidad de Costa Rica
+//                  					  Proyecto Eléctrico
+//                                II Ciclo 2017
+//
+//                                  client_main.cpp
+//
+// Author: Pablo Avila B30724
+//
+// Description:
+// This is an example to create a client which continuosly ask the user for
+// messages and send them to an enabled server throw a socket.
+// 'z' characther ends the communication by closing the socket.
+//******************************************************************************
+
+// Standard inclides
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <iostream>
+#include <unistd.h>
+
+// Project includes
 #include "../Sockets.h"
 
 Sockets client;

@@ -10,6 +10,8 @@
 
 To compile examples use:
       make
+      make Server
+  or  make Client.
 
 To run the example use:
       make run

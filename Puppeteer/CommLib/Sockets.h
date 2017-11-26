@@ -6,6 +6,9 @@
 //                                  Sockets.h
 //
 // Author: Pablo Avila B30724
+//
+// Description:
+// Defines the functions and attributes of the class 'Sockets'.
 //******************************************************************************
 
 #ifndef SOCKETS_H

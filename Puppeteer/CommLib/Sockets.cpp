@@ -6,25 +6,39 @@
 //                                 sockets.cpp
 //
 // Author: Pablo Avila B30724
+//
+// Description:
+// This file contains the description of the necessary functions to enable the
+// communication between devices throw TCP/IP sockets.
+// To get more information about sockets visit:
+// http://pubs.opengroup.org/onlinepubs/009696699/basedefs/sys/socket.h.html
 //******************************************************************************
 
+// Standard inclides
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <iostream>
+#include <unistd.h>
+
+// Sockets includes
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+
+// Project includes
 #include "Sockets.h"
-#include <iostream>
 
 using namespace std;
 
+// Constructor and Destructor of class 'Sockets'
 Sockets::Sockets(){}
 Sockets::~Sockets(){}
 
 //******************************************************************************
+// Displays error message when a unnexpected behavior happend.
+
 void Sockets::error(const char *msg)
 {
   perror(msg);
@@ -32,6 +46,9 @@ void Sockets::error(const char *msg)
 }
 
 //******************************************************************************
+// Create a TCP (SOCK_STREAM) socket using an internet address of IPv4.
+// Also can be used SOCK_DATA for UDP an AF_INET FOR IPv6 for example.
+
 void Sockets::openCom(unsigned int portno){
   this->sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -44,6 +61,11 @@ void Sockets::openCom(unsigned int portno){
 }
 
 //******************************************************************************
+// Define the server struct to be compatible with the socket previously opened
+// and with the address of the host to be server.
+// Assign the opened address with the socket using 'bind()' and start listening
+// the socket, accepting incoming messages.
+
 void Sockets::initServer(unsigned int portno){
   struct sockaddr_in serv_addr, cli_addr;
   socklen_t clilen;
@@ -72,6 +94,9 @@ void Sockets::initServer(unsigned int portno){
 }
 
 //******************************************************************************
+// Reads the socket buffer for a message and write an acknowledge to the client
+// then returns an string with the message.
+
 char* Sockets::receiveMessage(unsigned int portno){
   char* buffer;
   buffer = new char[256];
@@ -94,6 +119,9 @@ char* Sockets::receiveMessage(unsigned int portno){
 }
 
 //******************************************************************************
+// Get the server information and connect to the socket created if the
+// communication channel is already open.
+
 void Sockets::initClient(const char* host, unsigned int portno){
   struct sockaddr_in serv_addr;
   struct hostent *server;
@@ -115,6 +143,8 @@ void Sockets::initClient(const char* host, unsigned int portno){
 }
 
 //******************************************************************************
+// Send message throw the socket and wait for server ack.
+
 void Sockets::sendMessage(char* buffer){
   int n;
   char receive[256];
@@ -133,6 +163,8 @@ void Sockets::sendMessage(char* buffer){
 }
 
 //******************************************************************************
+// Close sockets for primary communication and replies.
+
 void Sockets::closeCom(unsigned int portno){
   close(this->sockfd);
   close(this->newsockfd);
