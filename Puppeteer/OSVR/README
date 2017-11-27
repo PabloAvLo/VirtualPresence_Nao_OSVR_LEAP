@@ -1,3 +1,58 @@
-.../OSVR-Core/inc/osvr/sockets/
-./Client <IPdelNAO> 3010 
-./Server 3010
+********************************************************************************
+                           Universidad de Costa Rica
+                  					  Proyecto Eléctrico
+                                II Ciclo 2017
+
+                              README: OSVR Client
+
+ Author: Pablo Avila B30724
+
+ Description:
+
+ The OSVR HDK glasses are compiled using a custom cmake structure, for this
+ reason, the Puppeteer server for OSVR is embedded in this structure.
+ The program 'OSVR-Core/exmaples/clients/TrackerState.cpp' provides the
+ functionallity of communication between OSVR and NAO.
+********************************************************************************
+
+
+********************************************************************************
+INSTALL:
+
+  Create a Puppeteer folder and inside a directory 'OSVR', then download the
+  OSVR-CORE github:
+    git clone https://github.com/OSVR/OSVR-Core.git
+
+    Then create a 'build' directory, update the repository and install the SDK:
+    cd OSVR-Core
+    ckdir build
+    cd build
+    git submodule update --init --recursive
+
+An auxiliar directory must be created for the installation and compile the
+project (remove quotes and enter the path to Puppeteer/OSVR folder):
+  cmake .. -DCMAKE_INSTALL_PREFIX="path_to_Puppeteer/OSVR"/osvrAux
+  make
+  make install
+
+ Visit Puppeteer Github for more information:
+ https://github.com/PabloAvLo/VirtualPresence_Nao_OSVR_LEAP/tree/master/Puppeteer
+
+
+********************************************************************************
+COMPILE:
+
+  Change the TrackerState.cpp in 'OSVR-Core/exmaples/clients/' with the one in
+  Puppeteer/OSVR Github (see above). Ensure 'CommLib' folder is inside Puppeteer/
+  and sockets.h, sockets.cpp exists there.
+  Use the next lines in 'OSVR-Core/build/'
+    make
+    make install
+
+
+********************************************************************************
+RUN:
+
+In 'OSVR-Core/build/bin' execute:
+      sudo ./osvr-server
+and   ./TrackerState_cpp <NAO_IP>
