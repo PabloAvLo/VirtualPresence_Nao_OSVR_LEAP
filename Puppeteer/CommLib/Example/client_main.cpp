@@ -9,7 +9,7 @@
 ///
 /// Description:
 /// This is an example to create a client which continuosly ask the user for
-/// messages and send them to an enabled server throw a socket.
+/// messages and send them to an enabled server thru a socket.
 /// 'z' characther ends the communication by closing the socket.
 ///*****************************************************************************
 

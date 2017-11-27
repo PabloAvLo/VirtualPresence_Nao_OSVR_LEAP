@@ -9,7 +9,7 @@
 ///
 /// Description:
 /// This file contains the description of the necessary functions to enable the
-/// communication between devices throw TCP/IP sockets.
+/// communication between devices thru TCP/IP sockets.
 /// To get more information about sockets visit:
 /// http://pubs.opengroup.org/onlinepubs/009696699/basedefs/sys/socket.h.html
 ///*****************************************************************************
@@ -143,7 +143,7 @@ void Sockets::initClient(const char* host, unsigned int portno){
 }
 
 ///*****************************************************************************
-/// Send message throw the socket and wait for server ack.
+/// Send message thru the socket and wait for server ack.
 
 void Sockets::sendMessage(char* buffer){
   int n;

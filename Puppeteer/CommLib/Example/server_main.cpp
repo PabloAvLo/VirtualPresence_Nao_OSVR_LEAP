@@ -9,7 +9,7 @@
 ///
 /// Description:
 /// This is an example to create a server which continuosly listen the
-/// communication channel for client message's throw a socket.
+/// communication channel for client message's thru a socket.
 ///*****************************************************************************
 
 /// Standard inclides
