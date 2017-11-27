@@ -1,4 +1,4 @@
-#*********************************************************************************
+##******************************************************************************
 #                           Universidad de Costa Rica
 #                  						   Proyecto Eléctrico
 #                                  II Ciclo 2017
@@ -8,7 +8,7 @@
 # Author: Pablo Avila B30724
 # This makefile compiles and runs the server and client hosts for a socket
 # communication in port number: 3000.
-#*********************************************************************************
+#*******************************************************************************
 
 OBJ1=  server_main.cpp ../Sockets.cpp ../Sockets.h
 OBJ2=  client_main.cpp ../Sockets.cpp ../Sockets.h

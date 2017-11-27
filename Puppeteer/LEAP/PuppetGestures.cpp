@@ -1,30 +1,40 @@
-//******************************************************************************
-//                           Universidad de Costa Rica
-//                  					  Proyecto Eléctrico
-//                                II Ciclo 2017
-//
-//                                 gestos.cpp
-//
-// Author: Pablo Avila B30724
-//******************************************************************************
-//
-// To record a both hands gesture is recomended to place your left hand first 
-// and the the right hand, to create clean/ordered data.
-// Or you can place both hands before start recording and ask someone to start 
-// the program.
-// Is highly recommended to use Visualizer to ensure the correct possition of
-// the hands in the gesture. 
+///*****************************************************************************
+///                           Universidad de Costa Rica
+///                  					  Proyecto Eléctrico
+///                                II Ciclo 2017
+///
+///                             PuppetGestures.cpp
+///
+/// Author: Pablo Avila B30724
+///
+/// Description:
+/// To record a both hands gesture is recomended to place your left hand first
+/// and then the right hand, to create clean/ordered data.
+/// Or you can place both hands before start recording and ask someone to start
+/// the program.
+/// Is highly recommended to execute 'Visualizer' to ensure the correct possition
+/// of the hands in the gesture.
+///*****************************************************************************
 
-//Standard Includes
+/// Standard Includes
 #include <iostream>
 #include <fstream>
 #include <cstring>
 
-//Project Includes
+/// Puppeteer Includes
 #include "./Include/Leap.h"
 
 using namespace std;
 using namespace Leap;
+
+///*****************************************************************************
+/// Extends Listener class to open and modify an output file.
+/// The Leap Motion structure is:
+/// Frame:
+///       Hands (Left and Right)      Fingers
+///       Arms                        Thumb, Index, Middel, Ring and Pinky
+///       Elbow and Wristle           each finger has the next bones:
+///                                   Metacarpal, Proximal, Middle and Distal.
 
 class SampleListener : public Listener {
   public:
@@ -38,17 +48,28 @@ class SampleListener : public Listener {
 const std::string fingerNames[] = {"Thumb", "Index", "Middle", "Ring", "Pinky"};
 const std::string boneNames[] = {"Metacarpal", "Proximal", "Middle", "Distal"};
 
+///*****************************************************************************
+/// Initialize Listener
 void SampleListener::onInit(const Controller& controller) {
   cout << "Initialized" << endl;
 }
 
+///*****************************************************************************
+///  Exit Listener
 void SampleListener::onExit(const Controller& controller) {
   cout << "Exited" << endl;
 }
 
-void SampleListener::onFrame(const Controller& controller) {
-  // Get the most recent frame and report some basic information
+///*****************************************************************************
+/// This method make the transformation from absolute bones vectors to the
+/// relative vectors, using the center of the hand as origin of the coordinate
+/// system. The (x,y,z) vector of each bone of all fingers on every hand in the
+/// frame will be retrieve and store in and .csv file in order to define a new
+/// gesture based on these distances with +/- tolerance.
 
+void SampleListener::onFrame(const Controller& controller) {
+
+  // Get the most recent frame and report some basic information
   const Frame frame = controller.frame();
   HandList hands = frame.hands();
 
@@ -77,6 +98,7 @@ void SampleListener::onFrame(const Controller& controller) {
 
         Vector bonePos = bone.center();
 
+/// Move the coordinated system to the center of the hand.
         Vector relBonePos = bonePos - handCenter;
         float relMagnitude = relBonePos.magnitude();
 	      this->outputFile << relMagnitude<<",";
@@ -89,7 +111,7 @@ void SampleListener::onFrame(const Controller& controller) {
 
 int main(int argc, char* argv[]) {
 
-  // Create a sample listener and controller
+/// Create a sample listener and controller
   SampleListener listener;
   Controller controller;
 
@@ -104,17 +126,16 @@ int main(int argc, char* argv[]) {
     fileName = argv[1];
   }
 
-//  ofstream outputFile;
   string path = "./"+ resultsFolder +"/"+fileName;
   listener.outputFile.open(path);
 
 
-  //************* PRINTS *************************
+  /// ************* PRINTS *************************
   listener.outputFile<<"    Universidad de Costa Rica   "<< endl
       							 <<"       Proyecto Eléctrico       "<< endl
       							 <<"         II Ciclo 2017          "<< endl
       							 <<"          "<<fileName<<"        "<< endl
-      							 <<" Author: Pablo Avila B30724     "<< endl 
+      							 <<" Author: Pablo Avila B30724     "<< endl
       							 << endl
       							 <<" Media:"<< endl
      								 <<" Max Deviation:"<< endl
@@ -130,13 +151,13 @@ int main(int argc, char* argv[]) {
   listener.outputFile << endl;
 
 
-  // Have the sample listener receive events from the controller
+  /// Have the sample listener receive events from the controller
   controller.addListener(listener);
 
   if (argc > 1 && strcmp(argv[1], "--bg") == 0)
     controller.setPolicy(Leap::Controller::POLICY_BACKGROUND_FRAMES);
 
-  // Keep this process running until Enter is pressed
+  /// Keep this process running until Enter is pressed
   std::cout << "Press Enter to quit..." << std::endl;
   std::cin.get();
   if(argc != 2){
@@ -144,8 +165,7 @@ int main(int argc, char* argv[]) {
   }
   listener.outputFile.close();
 
-  // Remove the sample listener when done
+  /// Remove the sample listener when done
   controller.removeListener(listener);
-
   return 0;
 }

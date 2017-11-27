@@ -1,23 +1,23 @@
-//******************************************************************************
-//                           Universidad de Costa Rica
-//                  					  Proyecto Eléctrico
-//                                II Ciclo 2017
-//
-//                                  client_main.cpp
-//
-// Author: Pablo Avila B30724
-//
-// Description:
-// This is an example to create a server which continuosly listen the
-// communication channel for client message's throw a socket.
-//******************************************************************************
+///*****************************************************************************
+///                           Universidad de Costa Rica
+///                  					  Proyecto Eléctrico
+///                                II Ciclo 2017
+///
+///                                  client_main.cpp
+///
+/// Author: Pablo Avila B30724
+///
+/// Description:
+/// This is an example to create a server which continuosly listen the
+/// communication channel for client message's throw a socket.
+///*****************************************************************************
 
-// Standard inclides
+/// Standard inclides
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 
-// Project includes
+/// Puppeteer includes
 #include "../Sockets.h"
 
 Sockets server;
