@@ -1,8 +1,20 @@
 # -*- encoding: UTF-8 -*-
+##******************************************************************************
+#                           Universidad de Costa Rica
+#                  						   Proyecto Eléctrico
+#                                  II Ciclo 2017
 #
+#                  Makefile: vision_Puppeteer.py
+#
+# Author: Pablo Avila B30724
+#
+# Description:.
 # This is a tiny example that shows how to show live images from Nao using PyQt.
 # You must have python-qt4 installed on your system.
 #
+# Run:
+#    python vision_Puppeteer.py <NAO_IP>
+#*******************************************************************************
 
 import sys
 
@@ -60,7 +72,6 @@ class ImageWidget(QWidget):
         self._videoProxy.setParam(vision_definitions.kCameraSelectID,
                                   self._cameraID)
 
-
     def _unregisterImageClient(self):
         """
         Unregister our naoqi video module.
@@ -103,7 +114,6 @@ class ImageWidget(QWidget):
         self._unregisterImageClient()
 
 
-
 if __name__ == '__main__':
     IP = "10.0.1.190"  # Replace here with your NaoQi's IP address.
     PORT = 9559
@@ -119,10 +129,16 @@ if __name__ == '__main__':
 
 
     app = QApplication(sys.argv)
+
+## Three windows are required, one for each eye in OSVR-HDK glasses, and one for
+# the PC screen.
+
     myWindow = ImageWidget(IP, PORT, CameraID)
     myWindow.show()
+
     osvrWindowLeftEye = ImageWidget(IP, PORT, CameraID)
     osvrWindowLeftEye.show()
+
     osvrWindowRightEye = ImageWidget(IP, PORT, CameraID)
     osvrWindowRightEye.show()
 
