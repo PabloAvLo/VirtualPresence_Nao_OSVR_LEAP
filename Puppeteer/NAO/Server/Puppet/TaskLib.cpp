@@ -1,31 +1,36 @@
-//******************************************************************************
-//                           Universidad de Costa Rica
-//                  					  Proyecto Eléctrico
-//                                II Ciclo 2017
-//
-//                                 TaskLib.cpp
-//
-// Author: Pablo Avila B30724
-//******************************************************************************
+///*****************************************************************************
+///                           Universidad de Costa Rica
+///                  					  Proyecto Eléctrico
+///                                II Ciclo 2017
+///
+///                                 TaskLib.cpp
+///
+/// Author: Pablo Avila B30724
+///
+/// Description:
+/// This library has the implementation of each task the NAO is supposed to do.
+/// As convention, in Puppeteer project the designee port for Leap Motion-NAO
+/// communication is nummber 3000.
+///*****************************************************************************
 
-//Project Includes
+/// Puppeteer includes
 #include "TaskLib.h"
 
-//************************** CONSTRUCTOR ***************************************
+///************************* CONSTRUCTOR ***************************************
   TaskLib::TaskLib(){
     naoIP = "127.0.0.1";
     port = 3000;
   }
 
-//************************** DESTRUCTOR ****************************************
+///************************* DESTRUCTOR ****************************************
   TaskLib::~TaskLib(){}
 
-//************************** SPEAK *********************************************
+///************************* SPEAK *********************************************
  void TaskLib::speak(AL::ALTextToSpeechProxy tts, string textToSay){
   tts.post.say(textToSay);
 }
 
-//************************** STIFFNESS ON/OFF **********************************
+///************************* STIFFNESS ON/OFF **********************************
  bool TaskLib::stiffnessOnOff(AL::ALMotionProxy motion, bool rigid=true, string bodyPart= "Body"){
    float stiffnesses  = 1.0f;
 
@@ -37,7 +42,7 @@
   return (!rigid);
 }
 
-//************************** STAND UP ******************************************
+///************************* STAND UP ******************************************
  void TaskLib::standUp(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, float speed){
    string standInit = "StandInit";
 
@@ -45,7 +50,7 @@
    posture.goToPosture(standInit, speed);
 }
 
-//************************** CROUCH ********************************************
+///************************* CROUCH ********************************************
 void TaskLib::crouch(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, float speed){
   string crouch = "Crouch";
   motion.setStiffnesses("Body", 1.0f);
@@ -55,7 +60,7 @@ void TaskLib::crouch(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, 
   motion.setStiffnesses("Head", 1.0f);
 }
 
-//************************** SIT DOWN ******************************************
+///************************* SIT DOWN ******************************************
 void TaskLib::sitDown(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, float speed){
   string sit = "Sit";
 
@@ -66,7 +71,7 @@ void TaskLib::sitDown(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture,
   motion.setStiffnesses("Head", 1.0f);
 }
 
-//************************** LEFT HAND OPEN/CLOSE ******************************
+///************************* LEFT HAND OPEN/CLOSE ******************************
 bool TaskLib::lHandOpenClose(AL::ALMotionProxy motion, bool open){
 
   motion.setStiffnesses("LHand", 1.0f);
@@ -81,7 +86,7 @@ bool TaskLib::lHandOpenClose(AL::ALMotionProxy motion, bool open){
   return (!open);
 }
 
-//************************** RIGHT HAND OPEN/CLOSE *****************************
+///************************* RIGHT HAND OPEN/CLOSE *****************************
 bool TaskLib::rHandOpenClose(AL::ALMotionProxy motion, bool open){
 
   motion.setStiffnesses("RHand", 1.0f);
@@ -96,7 +101,7 @@ bool TaskLib::rHandOpenClose(AL::ALMotionProxy motion, bool open){
   return (!open);
 }
 
-//************************** WALK **********************************************
+///************************* WALK **********************************************
 void TaskLib::walk(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vX){
   string standInit = "StandInit";
   string actuator= "Body";
@@ -107,7 +112,7 @@ void TaskLib::walk(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, co
   motion.moveToward(vX, 0.0f, 0.0f);
 }
 
-//************************** ROTATE ********************************************
+///************************* ROTATE ********************************************
 void TaskLib::rotate(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vTheta){
   string standInit = "StandInit";
   string actuator= "Body";
@@ -118,7 +123,7 @@ void TaskLib::rotate(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, 
   motion.moveToward(0.0f, 0.0f, vTheta);
 }
 
-//************************** MOVE SIDE *****************************************
+///************************* MOVE SIDE *****************************************
 void TaskLib::moveSide(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture, const float vY){
   string standInit = "StandInit";
   string actuator= "Body";
@@ -129,7 +134,7 @@ void TaskLib::moveSide(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture
   motion.moveToward(0.0f, vY, 0.0f);
 }
 
-//************************** STOP MOVE *****************************************
+///************************* STOP MOVE *****************************************
 void TaskLib::stopMove(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture){
   string standInit = "StandInit";
   float speed = 0.9f;
@@ -138,21 +143,21 @@ void TaskLib::stopMove(AL::ALMotionProxy motion, AL::ALRobotPostureProxy posture
   posture.goToPosture(standInit, speed);
 }
 
-//************************** CAMERA SET UP *************************************
+///************************* CAMERA SET UP *************************************
 void TaskLib::cameraSetUp(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy photo, AL::ALVideoRecorderProxy recorder){
-  // Video Device
+  /// Video Device
 
-  // Take Pictures
+  /// Take Pictures
   photo.setPictureFormat("png");
-  photo.setResolution(2); // kQQVGA
+  photo.setResolution(2); /// kQQVGA
 
-  // Record Video
+  /// Record Video
   recorder.setVideoFormat("MJPG");
-  recorder.setResolution(2); // kQQVGA
+  recorder.setResolution(2); /// kQQVGA
   recorder.setFrameRate(15); //15 FPS max.
 }
 
-//************************** SELECT CAMERA  ************************************
+///************************* SELECT CAMERA  ************************************
 bool TaskLib::selectCamera(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy photo, AL::ALVideoRecorderProxy recorder, bool top){
   bool cameraId=0;
 
@@ -166,7 +171,7 @@ bool TaskLib::selectCamera(AL::ALVideoDeviceProxy video, AL::ALPhotoCaptureProxy
   return (!top);
 }
 
-//************************** TAKE PICTURE **************************************
+///************************* TAKE PICTURE **************************************
 void TaskLib::takePicture(AL::ALPhotoCaptureProxy photo, string fileName){
   string path = "/home/nao/Puppeteer/Pictures/";
   bool overWrite = false;
@@ -174,7 +179,7 @@ void TaskLib::takePicture(AL::ALPhotoCaptureProxy photo, string fileName){
   photo.takePicture(path, fileName, overWrite);
 }
 
-//************************** RECORD VIDEO **************************************
+///************************* RECORD VIDEO **************************************
 bool TaskLib::recordVideo(AL::ALVideoRecorderProxy recorder, string fileName, bool startRec){
   if(startRec == true){
     string path = "/home/nao/Puppeteer/Videos/";
@@ -189,12 +194,12 @@ bool TaskLib::recordVideo(AL::ALVideoRecorderProxy recorder, string fileName, bo
   return(!startRec);
 }
 
-//************************** MOVE ARMS ***********************************
+///************************* MOVE ARMS ***********************************
 bool TaskLib::moveArms(AL::ALMotionProxy motion, bool up){
   AL::ALValue shoulders = AL::ALValue::array("LShoulderPitch", "RShoulderPitch");
   AL::ALValue elbows = AL::ALValue::array("LShoulderPitch", "RShoulderPitch");
 
-  float angle = 1.571f; // PI/2
+  float angle = 1.571f; /// PI/2
   float fractionMaxSpeed  = 0.3f;
 
   if(up == false){
@@ -212,12 +217,12 @@ bool TaskLib::moveArms(AL::ALMotionProxy motion, bool up){
   return (!up);
 }
 
-//************************** REACH OBJECT ***********************************
+///************************* REACH OBJECT ***********************************
 void TaskLib::reachObject(AL::ALMotionProxy motion){
   AL::ALValue shoulders = AL::ALValue::array("LShoulderPitch", "RShoulderPitch");
   AL::ALValue elbows = AL::ALValue::array("LShoulderPitch", "RShoulderPitch");
 
-  float shoulderAngle = 0.0f; // PI/2
+  float shoulderAngle = 0.0f; /// PI/2
   float elbowAngle = -1.54f; // -88.5 [deg]
   float fractionMaxSpeed  = 0.3f;
 

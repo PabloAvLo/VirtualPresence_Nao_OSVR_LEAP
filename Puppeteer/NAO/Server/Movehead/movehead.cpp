@@ -1,39 +1,59 @@
-// scp setAngles nao@10.0.1.122:/home/nao
+///*****************************************************************************
+///                           Universidad de Costa Rica
+///                  					  Proyecto Eléctrico
+///                                II Ciclo 2017
+///
+///                                 Movehead.cpp
+///
+/// Author: Pablo Avila B30724
+///
+/// Description:
+/// This is the NAO-OSVR communication server process, that recieves the OSVR
+/// orientation values in x and y axis to make the NAO move it's head the most
+/// similar to the operator, in real time.
+///*****************************************************************************
 
-// Nao Includes
+/// NAO includes
 #include <alproxies/almotionproxy.h>
 #include <alerror/alerror.h>
 #include <qi/os.hpp>
 
-// Sockets Library includes
-#include "Sockets.h"
+/// Puppeteer includes
+#include "../../../CommLib/Sockets.h"
 
-// Standard includes
+/// Standard includes
 #include <iostream>
 #include <string>
 using namespace std;
 
-// Definitions
-#define MOVE_HEAD_PORT 3010
+/// Definitions
+#define MOVE_HEAD_PORT 3020
 #define MESSAGE_LENGTH 256
 
 Sockets server;
 
+///*****************************************************************************
 int main(int argc, char *argv[])
 {
+
+  if(argc != 2)
+  {
+    std::cerr << "Wrong number of arguments!" << std::endl;
+    std::cerr << "Usage: setAngles <NAO_IP>" << std::endl;
+    exit(2);
+  }
+
   try{
-    // This IP is for run the process native in the NAO. NOT through PC.
-    string robotIp = "10.0.1.122";
+    /// This IP is for run the process native in the NAO. NOT through PC.
+    string robotIp = argv[1];
     AL::ALMotionProxy motion(robotIp, 9559);
 
-    // Init communication Server by socket TCP
+    /// Init communication Server by socket TCP
     server.openCom(MOVE_HEAD_PORT);
     server.initServer(MOVE_HEAD_PORT);
 
-    // Receive X and Y coordantes from OSVR.
+    /// Receive X and Y coordantes from OSVR.
     char* osvrMessage;
-//    osvrMessage = new char [MESSAGE_LENGTH];
-
     int commaIndex;
     char osvrX[7];
     char osvrY[7];
@@ -67,15 +87,12 @@ int main(int argc, char *argv[])
         y = atof(osvrY);
         yaw   = y * pi;
 
-        // Example showing how to set angles, using a fraction of max speed
+        /// Example showing how to set angles, using a fraction of max speed
         AL::ALValue names       = AL::ALValue::array("HeadYaw", "HeadPitch");
         AL::ALValue angles      = AL::ALValue::array(yaw, pitch);
         float fractionMaxSpeed  = 0.1f;
         motion.setStiffnesses(names, AL::ALValue::array(1.0f, 1.0f));
-        // qi::os::sleep(1.0f);
         motion.setAngles(names, angles, fractionMaxSpeed);
-        // qi::os::sleep(1.0f);
-        // motion.setStiffnesses(names, AL::ALValue::array(0.0f, 0.0f));
       }
       delete osvrMessage;
     }
