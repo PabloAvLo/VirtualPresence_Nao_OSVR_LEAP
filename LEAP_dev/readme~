@@ -1,1 +1,0 @@
-g++ -o drawing prueba.cpp Leap.h LeapUtilGL.h LeapUtilGL.cpp sockets.cpp Sockets.h libLeap.so -lGL -lglut -lGLU

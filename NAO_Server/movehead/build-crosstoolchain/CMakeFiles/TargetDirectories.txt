@@ -1,1 +1,0 @@
-/home/pabloav/Documents/ProyectoElectrico/NAO/naoqi-sdk-2.1.4.13-linux64/doc/dev/cpp/examples/motion/movehead/build-crosstoolchain/CMakeFiles/setAngles.dir
