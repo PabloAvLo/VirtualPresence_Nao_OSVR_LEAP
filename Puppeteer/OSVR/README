@@ -36,7 +36,7 @@ project (remove quotes and enter the path to Puppeteer/OSVR folder):
   make install
 
  Visit Puppeteer Github for more information:
- https://github.com/PabloAvLo/VirtualPresence_Nao_OSVR_LEAP/tree/master/Puppeteer
+ https://github.com/PabloAvLo/VirtualPresence_Nao_OSVR_LEAP/tree/Release
 
 
 ********************************************************************************

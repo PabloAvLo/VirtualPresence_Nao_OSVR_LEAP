@@ -15,4 +15,4 @@ The project is mostly developed using C++ on Linux.
 The motivation to develop Puppeteer is to create a tool for Limited movement people as elder and people with movement disabilities. In order to start and encourage investigation on this topic.
 
 # Author
-Pablo Avila at PRIS-Lab as Final Project of Electrical EnginnerS, Universidad de Costa Rica.  
+Pablo Avila at PRIS-Lab as Final Project of Electrical Enginnering, Universidad de Costa Rica.  
