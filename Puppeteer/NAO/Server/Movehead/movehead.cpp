@@ -27,7 +27,7 @@
 using namespace std;
 
 /// Definitions
-#define MOVE_HEAD_PORT 3020
+#define MOVE_HEAD_PORT 3010
 #define MESSAGE_LENGTH 256
 
 Sockets server;
@@ -35,18 +35,11 @@ Sockets server;
 ///*****************************************************************************
 int main(int argc, char *argv[])
 {
-
-  if(argc != 2)
-  {
-    std::cerr << "Wrong number of arguments!" << std::endl;
-    std::cerr << "Usage: setAngles <NAO_IP>" << std::endl;
-    exit(2);
-  }
+  string naoIP = "127.0.0.1";
 
   try{
     /// This IP is for run the process native in the NAO. NOT through PC.
-    string robotIp = argv[1];
-    AL::ALMotionProxy motion(robotIp, 9559);
+    AL::ALMotionProxy motion(naoIP, 9559);
 
     /// Init communication Server by socket TCP
     server.openCom(MOVE_HEAD_PORT);

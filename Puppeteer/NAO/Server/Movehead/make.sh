@@ -15,6 +15,17 @@
 #
 # RUN:
 #  ./make.sh <NAO_IP>
+#
+# This makefile create a folder named 'build-puppeteerTC' where you can find
+# all the created files of the compilation. Exactly in:
+# 	./build-puppeteerTC/sdk/bin
+# you will find the executable file (Movehead) which this script place it in  
+# NAO's processor to be run. 
+# To connect the NAO use: 
+#		 ssh nao@<NAO_IP>
+# 	 password = nao
+# and then run the program with:  
+#		 ./Movehead		 
 #*******************************************************************************
 
 qibuild configure -c puppeteerTC

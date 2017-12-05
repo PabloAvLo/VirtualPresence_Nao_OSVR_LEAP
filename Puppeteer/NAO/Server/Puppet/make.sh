@@ -10,11 +10,22 @@
 #
 # Description:
 # As any Naoqi program, is compile using qibuild with the Cross-Platform
-# ToolChain provide by Aldebaran. This script, compiles 'Puppet.cpp' and copy
+# ToolChain provide by Aldebaran. This script, compiles 'movehead.cpp' and copy
 # the executable to the NAO using ssh, and run it inmediatly (optional).
 #
 # RUN:
 #  ./make.sh <NAO_IP>
+#
+# This makefile create a folder named 'build-puppeteerTC' where you can find
+# all the created files of the compilation. Exactly in:
+# 	./build-puppeteerTC/sdk/bin
+# you will find the executable file (Puppet) which this script place it in  
+# NAO's processor to be run. 
+# To connect the NAO use: 
+#		 ssh nao@<NAO_IP>
+# 	 password = nao
+# and then run the program with:  
+#		 ./Puppet		 
 #*******************************************************************************
 
 qibuild configure -c puppeteerTC
